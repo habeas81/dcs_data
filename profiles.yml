@@ -12,8 +12,8 @@ sdcs:
       port: "{{ env_var('DB_PORT') | as_number }}"
       user: "{{ env_var('DB_USER' )}}"
       password: "{{ env_var('DB_PASSWORD' )}}"
-      dbname: "{{ env_var('DB_NAME' }}"
-      schema: "{{ env_var('DB_SCHEMA' }}"
+      dbname: "{{ env_var('DB_NAME') }}"
+      schema: "{{ env_var('DB_SCHEMA') }}"
 
     prod:
       type: postgres
@@ -21,8 +21,8 @@ sdcs:
       host: "{{ env_var('DBT_ENV_SECRET_DB_HOST') }}"
       port: "{{ env_var('DB_PORT') | as_number }}"
       user: "{{ env_var('DBT_ENV_SECRET_DB_USER' )}}"
-      password: "{{ env_var('DBT_ENV_SECRET_DB_PASSWORD' )}}"
-      dbname: "{{ env_var('DBT_ENV_SECRET_DB_NAME' }}"
+      password: "{{ env_var('DBT_ENV_SECRET_DB_PASSWORD') )}}"
+      dbname: "{{ env_var('DBT_ENV_SECRET_DB_NAME') }}"
       schema: analysis
 
     ci:
@@ -31,6 +31,6 @@ sdcs:
       host: "{{ env_var('DBT_ENV_SECRET_DB_HOST') }}"
       port: "{{ env_var('DB_PORT') | as_number }}"
       user: "{{ env_var('DBT_ENV_SECRET_DB_USER' )}}"
-      password: "{{ env_var('DBT_ENV_SECRET_DB_PASSWORD' )}}"
-      dbname: "{{ env_var('DBT_ENV_SECRET_DB_NAME' }}"
+      password: "{{ env_var('DBT_ENV_SECRET_DB_PASSWORD') )}}"
+      dbname: "{{ env_var('DBT_ENV_SECRET_DB_NAME') }}"
       schema: dbt_ci
