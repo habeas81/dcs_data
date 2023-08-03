@@ -1,0 +1,27 @@
+
+version: 2
+
+models:
+  - name: base_sdcs__events
+    description: >
+      Close to raw event stream.
+    config:
+      tags:
+        - unstructured
+        - base
+    columns:
+      - name: event_id
+        tests:
+          - unique
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: initiator_user_id
+        description: The user who intiated the event.
+      - name: target_user_id
+        description: The user who was the target of the event.
+      - name: time_created
+        description: When the event happened
+      - name: data
+        description: The event data, as json
