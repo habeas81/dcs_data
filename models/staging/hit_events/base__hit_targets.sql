@@ -56,12 +56,37 @@ scenery as (
     where target_category = 'scenery'
 ),
 
+static as (
+    select 
+        hit_id,
+        target_category,
+        (target -> 'static' ->> 'id')::int as target_id,
+        target -> 'static' ->> 'name' as target_name,
+        target -> 'static' ->> 'type' as target_type,
+        null::text as target_callsign,
+        target -> 'static' ->> 'coalition' as target_coalition,
+        (target -> 'static' -> 'position' ->> 'lat')::float as target_latitude,
+        (target -> 'static' -> 'position' ->> 'lon')::float as target_longitude,
+        (target -> 'static' -> 'position' ->> 'alt')::float as target_altitude,
+        (target -> 'static' -> 'velocity' ->> 'speed')::float as target_speed,
+        null::int as target_group_id,
+        null::text as target_group_name,
+        null::text as target_group_category,
+        null::text as target_group_coalition
+
+    from columns 
+    where target_category = 'static'
+),
+
 combined as (
     select * 
     from units
     union all
     select * 
     from scenery
+    union all
+    select *
+    from static
 ),
 
 final as (
