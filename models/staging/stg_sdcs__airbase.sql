@@ -13,7 +13,7 @@ reorder as (
 
         -- strings
         {{- fill_na('coalition::TEXT', 'NEUTRAL') -}} as coalition,
-        name,
+        name as airbase_name,
 
         -- booleans
         damaged as is_damaged,
