@@ -2,11 +2,12 @@ version: 2
 
 sources:
   - name: sdcs
+    database: sdcs
     schema: public
     tags:
       - raw
     tables:
-      - name: airbases
+      - name: airbase
         description: >
           An airfield that players can spawn and takeoff from. Each row records
           the status of the airbase for each campaign at the current time.
