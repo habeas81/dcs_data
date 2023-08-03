@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: stg_sdcs__airbase
+    description:
+      An airbase per campaign, with it's current status
+    config:
+      tags:
+        - structured
+        - slowly_changing
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: airbase_id
+        description: The id of the specific airbase
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: coalition
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "BLUE"
+                - "RED"
+                - "NEUTRAL"
+      - name: name
+        description: The name of the airbase 
+        tests:
+          - not_null
+      - name: is_damaged
+        tests:
+          - not_null
+      - name: is_functional
+        tests:
+          - not_null
+      - name: level
+        tests:
+          - not_null
+      - name: dcs_coordinates_u
+        tests:
+          - not_null
+      - name: dcs_coordinates_v
+        tests:
+          - not_null
