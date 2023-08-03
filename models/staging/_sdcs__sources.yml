@@ -3,6 +3,8 @@ version: 2
 sources:
   - name: sdcs
     schema: public
+    tags:
+      - raw
     tables:
       - name: airbases
         description: >
@@ -42,7 +44,8 @@ sources:
             description: The coalition that currently controls the airbase.
           - name: functional
             description: Whether the base can be used.
-            tests: not_null
+            tests: 
+              - not_null
           - name: damaged
       - name: awacs
       - name: campaign
