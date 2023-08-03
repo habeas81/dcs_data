@@ -22,7 +22,7 @@ rename as (
 ),
 
 final as (
-    select * from source
+    select * from rename
 )
 
 select * from final
