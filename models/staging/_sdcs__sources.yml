@@ -1,0 +1,94 @@
+version: 2
+
+sources:
+  - name: sdcs
+    schema: public
+    tables:
+      - name: airbases
+        description: >
+          An airfield that players can spawn and takeoff from. Each row records
+          the status of the airbase for each campaign at the current time.
+        columns:
+          - name: id
+            description: Primary key of the table
+            tests: 
+              - unique
+              - not_null
+          - name: campaign_id
+            description: The campaign the status is recorded for.
+            tests:
+              - not_null
+          - name: airbase_id
+            description: The id of the airbase
+            tests:
+              - not_null
+          - name: name
+            description: The name of the airbase
+            tests:
+              - not_null
+          - name: pos_u
+            description: The position of the base in DCS's u direction
+            tests:
+              - not_null
+          - name: pos_v
+            description: The position of the base in DCS's pos_v direction
+            tests:
+              - not_null
+          - name: level
+            description: The level of the airbase, from 0-3. 0 being not built.
+            tests:
+              - not_null
+          - name: coalition
+            description: The coalition that currently controls the airbase.
+          - name: functional
+            description: Whether the base can be used.
+            tests: not_null
+          - name: damaged
+      - name: awacs
+      - name: campaign
+      - name: campaign_unit_level_count
+      - name: discord_link
+      - name: events
+        description: >
+          Time series occurences that happen in the game engine. Hits, spawns,
+          map markers etc
+        columns:
+          - name: id
+            description: Primary key of the table
+            tests: 
+              - unique
+              - not_null
+          - name: campaign_id
+            description: The campaign the event occured in
+            tests: 
+              - not_null
+          - name: iniator_user_id
+            description: The id of the user who initiated the event
+          - name: target_user_id
+            description: The id of the user who was the target of the event
+          - name: data
+            description: The data of the event, unstructured json.
+            tests: 
+              - not_null
+      - name: farp
+      - name: issues
+      - name: lives
+      - name: persistent_markers
+      - name: shipping
+      - name: shipping_units
+      - name: sit_rep
+      - name: tickets
+      - name: unit
+      - name: unit_cargo
+      - name: unit_group
+      - name: unit_group_rp_cooldown
+      - name: unit_type
+      - name: user
+      - name: user_aliases
+      - name: user_bans
+      - name: user_campaign_crates
+      - name: user_flight_legs
+      - name: user_lives
+      - name: user_side
+      - name: weapon_cooldown
+
