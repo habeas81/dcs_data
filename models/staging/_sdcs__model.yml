@@ -8,6 +8,7 @@ models:
       tags:
         - structured
         - slowly_changing
+        - staging
     columns:
       - name: id
         tests:
