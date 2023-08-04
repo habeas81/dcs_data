@@ -33,11 +33,11 @@ joined as (
         -- ids
         details.hit_id,
         details.campaign_id,
-        details.initiator_user_id,
         init.initiator_id,
+        init.initiator_group_id,
+        details.initiator_user_id,
         target.target_id,
         details.target_user_id,
-        init.initiator_group_id,
         target.target_group_id,
         weapon.weapon_id,
 
