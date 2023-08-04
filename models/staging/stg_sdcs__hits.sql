@@ -82,8 +82,6 @@ joined as (
         weapon.weapon_position_v,
         weapon.weapon_speed
 
-
-
     from hit_details as details
     left join hit_targets as target
         on details.hit_id = target.hit_id
@@ -94,9 +92,63 @@ joined as (
     order by details.hit_id ASC
 ),
 
+cleaning as (
+    select
+        hit_id,
+        campaign_id,
+        initiator_id,
+        initiator_group_id,
+        initiator_user_id,
+        target_id,
+        target_user_id,
+        target_group_id,
+        weapon_id,
+
+        -- date/time
+        time_created,
+
+        -- text
+        initiator_callsign,
+        initiator_category,
+        split_part(initiator_coalition, '_', 2) as initiator_coalition,
+        initiator_group_name,
+        split_part(initiator_group_category, '_', 3) as initiator_group_category,
+        split_part(initiator_group_coalition, '_', 2) as initiator_group_coalition,
+        initiator_name,
+        initiator_type,
+        target_callsign,
+        target_category,
+        split_part(target_coalition, '_', 2) as target_coalition,
+        split_part(target_group_category, '_', 3) as target_group_category,
+        split_part(target_group_coalition, '_', 2) as target_group_coalition,
+        target_group_name,
+        target_name,
+        target_type,
+        weapon_type,
+        
+        -- floats
+        initiator_altitude,
+        initiator_latitude,
+        initiator_longitude,
+        intiator_position_u,
+        intiator_position_v,
+        initiator_speed,
+        target_altitude,
+        target_latitude,
+        target_longitude,
+        target_speed,
+        weapon_altitude,
+        weapon_latitude,
+        weapon_longitude,
+        weapon_heading,
+        weapon_position_u,
+        weapon_position_v,
+        weapon_speed
+        from joined
+),
 
 final as (
-    select * from joined
+    select * from cleaning
 )
 
 select * from final

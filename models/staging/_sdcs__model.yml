@@ -48,3 +48,24 @@ models:
       - name: dcs_coordinates_v
         tests:
           - not_null
+  - name: stg_sdcs__hits
+    description:
+      Hit events
+    config:
+      tags:
+        - structured
+        - staging
+    columns:
+      - name: hit_id
+      - name: campaign_id
+      - name: initiator_id
+      - name: initiator_group_id
+      - name: initiator_user_id
+      - name: target_id
+      - name: target_user_id
+      - name: target_group_id
+      - name: weapon_id
+      - name: time_created
+      - name: initiator_callsign
+      - name: initiator_category
+
