@@ -2,35 +2,14 @@ config:
   send_anonymous_usage_stats: False
   use_colors: True
 
-sdcs:
+sdcs_data:
   target: dev
   outputs:
     dev:
       type: postgres
-      threads: 4
-      host: "{{ env_var('DB_HOST') }}"
-      port: "{{ env_var('DB_PORT') | as_number }}"
-      user: "{{ env_var('DB_USER' )}}"
-      password: "{{ env_var('DB_PASSWORD' )}}"
-      dbname: "{{ env_var('DB_NAME') }}"
-      schema: "{{ env_var('DB_SCHEMA') }}"
-
-    prod:
-      type: postgres
-      threads: 4
-      host: "{{ env_var('DBT_ENV_SECRET_DB_HOST') }}"
-      port: "{{ env_var('DB_PORT') | as_number }}"
-      user: "{{ env_var('DBT_ENV_SECRET_DB_USER' )}}"
-      password: "{{ env_var('DBT_ENV_SECRET_DB_PASSWORD') )}}"
-      dbname: "{{ env_var('DBT_ENV_SECRET_DB_NAME') }}"
-      schema: analysis
-
-    ci:
-      type: postgres
-      threads: 4
-      host: "{{ env_var('DBT_ENV_SECRET_DB_HOST') }}"
-      port: "{{ env_var('DB_PORT') | as_number }}"
-      user: "{{ env_var('DBT_ENV_SECRET_DB_USER' )}}"
-      password: "{{ env_var('DBT_ENV_SECRET_DB_PASSWORD') )}}"
-      dbname: "{{ env_var('DBT_ENV_SECRET_DB_NAME') }}"
-      schema: dbt_ci
+      host: "localhost"
+      user: "postgres"
+      pass: "kermitbuns"
+      port: 5432
+      dbname: "sdcs"
+      schema: "events" # Replace 'events' with the appropriate schema name for your database
