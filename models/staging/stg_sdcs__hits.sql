@@ -108,7 +108,7 @@ cleaning as (
         time_created,
 
         -- text
-        initiator_callsign,
+        {{- blanks_as_null('initiator_callsign') -}} as initiator_callsign,
         initiator_category,
         split_part(initiator_coalition, '_', 2) as initiator_coalition,
         initiator_group_name,
@@ -116,7 +116,7 @@ cleaning as (
         split_part(initiator_group_coalition, '_', 2) as initiator_group_coalition,
         initiator_name,
         initiator_type,
-        target_callsign,
+        {{- blanks_as_null('target_callsign') -}} as target_callsign,
         target_category,
         split_part(target_coalition, '_', 2) as target_coalition,
         split_part(target_group_category, '_', 3) as target_group_category,
