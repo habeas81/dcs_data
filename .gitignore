@@ -5,3 +5,5 @@ logs/
 .venv/
 venv/
 .env
+profiles.yml
+dbt_project.yml
