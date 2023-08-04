@@ -169,6 +169,13 @@ models:
           - dbt_utils.accepted_range:
               min_value: -180
               max_value: 180 
+      - name: weapon_heading
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 360
+      - name: weapon_position_u
+      - name: weapon_position_v
       - name: weapon_speed
         tests:
           - dbt_utils.accepted_range:
