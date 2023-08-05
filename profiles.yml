@@ -9,7 +9,7 @@ sdcs_data:
       type: postgres
       host: "localhost"
       user: "postgres"
-      pass: "kermitbuns"
+      pass: 
       port: 5432
       dbname: "sdcs"
       schema: "events" # Replace 'events' with the appropriate schema name for your database
