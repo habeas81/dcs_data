@@ -13,7 +13,6 @@ db_params = {
     "password": os.environ.get("DB_PASSWORD"),
 }
 
-
 def get_first_level_keys():
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(**db_params)
@@ -38,7 +37,6 @@ def get_first_level_keys():
 
     return list(keys_set)
 
-
 def create_sql_files(keys):
     # Path to the dbt models directory where the files will be created
     path_to_dbt_models = r"D:\GitHub\sdcs_data\sdcs_data\models\staging"
@@ -54,14 +52,14 @@ def create_sql_files(keys):
             time AS event_time,
             data->>'{key}' AS {key}
         FROM events
+        WHERE data->>'{key}' IS NOT NULL
         """
-
+        
         filename = os.path.join(path_to_dbt_models, f"{key}_events.sql")
         with open(filename, "w") as file:
-            file.write(view_definition)
+            file.write(view_definition.strip())  # Removing leading and trailing whitespace
 
         print(f"File {filename} created.")
-
 
 if __name__ == '__main__':
     keys = get_first_level_keys()

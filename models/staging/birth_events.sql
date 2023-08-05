@@ -1,5 +1,4 @@
-
-        SELECT 
+SELECT 
             id, 
             campaign_id, 
             initiator_user_id, 
@@ -7,4 +6,4 @@
             time AS event_time,
             data->>'birth' AS birth
         FROM events
-        
+        WHERE data->>'birth' IS NOT NULL
