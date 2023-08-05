@@ -1,38 +1,10 @@
 
-    SELECT 
-        id, 
-        campaign_id, 
-        initiator_user_id, 
-        target_user_id, 
-        time AS event_time,
-    data->>'refueling' AS refueling,
-data->>'playerSendChat' AS playerSendChat,
-data->>'time' AS time,
-data->>'dead' AS dead,
-data->>'crash' AS crash,
-data->>'unitLost' AS unitLost,
-data->>'baseCapture' AS baseCapture,
-data->>'playerLeaveUnit' AS playerLeaveUnit,
-data->>'markAdd' AS markAdd,
-data->>'hit' AS hit,
-data->>'pilotDead' AS pilotDead,
-data->>'score' AS score,
-data->>'shootingEnd' AS shootingEnd,
-data->>'land' AS land,
-data->>'birth' AS birth,
-data->>'kill' AS kill,
-data->>'markChange' AS markChange,
-data->>'engineShutdown' AS engineShutdown,
-data->>'refuelingStop' AS refuelingStop,
-data->>'groupCommand' AS groupCommand,
-data->>'disconnect' AS disconnect,
-data->>'playerChangeSlot' AS playerChangeSlot,
-data->>'engineStartup' AS engineStartup,
-data->>'shootingStart' AS shootingStart,
-data->>'ejection' AS ejection,
-data->>'connect' AS connect,
-data->>'markRemove' AS markRemove,
-data->>'event' AS event,
-data->>'takeoff' AS takeoff
-    FROM {{ ref('events') }}
-    
+        SELECT 
+            id, 
+            campaign_id, 
+            initiator_user_id, 
+            target_user_id, 
+            time AS event_time,
+            data->>'engineShutdown' AS engineShutdown
+        FROM events
+        

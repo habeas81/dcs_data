@@ -43,33 +43,22 @@ def create_sql_files(keys):
     # Path to the dbt models directory where the files will be created
     path_to_dbt_models = r"D:\GitHub\sdcs_data\sdcs_data\models\staging"
 
-    # Create the view definition with renamed "time" column
-    view_definition = """
-    SELECT 
-        id, 
-        campaign_id, 
-        initiator_user_id, 
-        target_user_id, 
-        time AS event_time,
-    """
-    
     for key in keys:
-        # Add the key to the view definition
-        view_definition += f"data->>'{key}' AS {key},\n"
+        # Create the view definition with renamed "time" column
+        view_definition = f"""
+        SELECT 
+            id, 
+            campaign_id, 
+            initiator_user_id, 
+            target_user_id, 
+            time AS event_time,
+            data->>'{key}' AS {key}
+        FROM events
+        """
 
-    # Remove the last comma from the view definition
-    view_definition = view_definition.rstrip(",\n")
-
-    # Add the FROM clause and WHERE condition to the view definition
-    view_definition += """
-    FROM {{ ref('events') }}
-    """
-
-    for key in keys:
         filename = os.path.join(path_to_dbt_models, f"{key}_events.sql")
         with open(filename, "w") as file:
-            # Remove the last semicolon from the view definition before writing to the file
-            file.write(view_definition.rstrip(";"))
+            file.write(view_definition)
 
         print(f"File {filename} created.")
 
