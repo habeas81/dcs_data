@@ -13,6 +13,16 @@ db_params = {
     "password": os.environ.get("DB_PASSWORD"),
 }
 
+def flatten_json(json_data, parent_key='', sep='_'):
+    items = []
+    for key, value in json_data.items():
+        new_key = f"{parent_key}{sep}{key}" if parent_key else key
+        if isinstance(value, dict):
+            items.extend(flatten_json(value, new_key, sep=sep).items())
+        else:
+            items.append((new_key, value))
+    return dict(items)
+
 def get_first_level_keys():
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(**db_params)
@@ -29,7 +39,8 @@ def get_first_level_keys():
     for record in records:
         data = record[0]
         if isinstance(data, dict):  # Ensure that the data is a JSON object
-            keys_set.update(data.keys())
+            flattened_data = flatten_json(data)
+            keys_set.update(flattened_data.keys())
 
     # Close the connection
     cursor.close()
