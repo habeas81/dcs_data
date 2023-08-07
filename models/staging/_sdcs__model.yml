@@ -48,3 +48,136 @@ models:
       - name: dcs_coordinates_v
         tests:
           - not_null
+  - name: stg_sdcs__hits
+    description:
+      Hit events
+    config:
+      tags:
+        - structured
+        - staging
+    columns:
+      - name: hit_id
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: initiator_id
+      - name: initiator_group_id
+      - name: initiator_user_id
+      - name: target_id
+      - name: target_user_id
+      - name: target_group_id
+      - name: weapon_id
+      - name: time_created
+      - name: initiator_callsign
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_category
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_coalition
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_group_name
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_group_category
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_group_coalition
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_name
+        tests:
+          - dbt_utils.not_empty_string
+      - name: initiator_type
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_callsign
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_category
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_coalition
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_group_category
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_group_coalition
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_group_name
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_name
+        tests:
+          - dbt_utils.not_empty_string
+      - name: target_type
+      - name: weapon_type
+      - name: initiator_altitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -428
+      - name: initiator_latitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -90
+              max_value: 90
+      - name: initiator_longitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -180
+              max_value: 180 
+      - name: initiator_position_u
+      - name: initiator_position_v
+      - name: initiator_speed
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: target_altitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -428
+      - name: target_latitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -90
+              max_value: 90
+      - name: target_longitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -180
+              max_value: 180 
+      - name: target_speed
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: weapon_altitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -428
+      - name: weapon_latitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -90
+              max_value: 90
+      - name: weapon_longitude
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: -180
+              max_value: 180 
+      - name: weapon_heading
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 360
+      - name: weapon_position_u
+      - name: weapon_position_v
+      - name: weapon_speed
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
