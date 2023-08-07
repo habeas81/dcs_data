@@ -1,9 +1,10 @@
 SELECT 
-            id, 
-            campaign_id, 
-            initiator_user_id, 
-            target_user_id, 
-            time AS event_time,
-            data->>'birth' AS birth
-        FROM events
-        WHERE data->>'birth' IS NOT NULL
+        id, 
+        campaign_id, 
+        initiator_user_id, 
+        target_user_id, 
+        time AS event_time,
+        data->>'birth' AS birth,
+        data->>'_birth' AS _birth
+    FROM events
+    WHERE data->>'birth' IS NOT NULL
