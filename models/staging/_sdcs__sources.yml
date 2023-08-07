@@ -2,7 +2,6 @@ version: 2
 
 sources:
   - name: sdcs
-    database: sdcs
     schema: public
     tags:
       - raw
