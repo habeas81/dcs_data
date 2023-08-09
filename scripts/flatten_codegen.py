@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+import argparse
 from dataclasses import dataclass
 from pathlib import Path
 from pprint import pprint
@@ -9,9 +11,10 @@ from typing import Union
 
 DBT_MODELS_PATH = Path(__file__).parent / "models"
 
-Child = Union[str, int, float, bool, "Node"]
+Child = Union[None, str, int, float, bool, "Node"]
 Node = dict[str, Child]
 Branch = list[str]
+
 
 
 @dataclass
@@ -19,13 +22,14 @@ class QueryLine:
     path: str
     name: str
 
+
     def __str__(self) -> str:
         return f"{self.path} as {self.name},"
 
     @classmethod
     def from_branch(cls, branch: Branch) -> Self:
         path = f"'{branch[0]}'"
-        name = ""
+        name = f"{branch[0]}"
         for key in branch[1:-1]:
             path = f"{path} -> '{key}'"
 
@@ -55,6 +59,7 @@ def walk(
         or isinstance(current, float)
         or isinstance(current, str)
         or isinstance(current, bool)
+        or current is None
     ):
         paths.append(QueryLine.from_branch(branch))
         return paths
@@ -65,6 +70,10 @@ def walk(
         branch.pop()
 
     return paths
+
+
+def parse_json(data: Node) -> list[QueryLine]:
+    return walk(data, [], [])
 
 
 def test_walk():
@@ -128,5 +137,12 @@ def test_walk():
     pprint(list(map(str, lines)))
 
 
+def main():
+    input_text = input("Enter your json to parse:")
+    tree: Node = json.loads(input_text)
+    for line in parse_json(tree):
+        print(str(line))
+
+
 if __name__ == "__main__":
-    test_walk()
+    main()
