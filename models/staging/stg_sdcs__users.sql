@@ -2,7 +2,7 @@ with
 
 source as (
     select * from {{ source('sdcs', 'user' )}}
-)
+),
 
 
 clean as (
@@ -11,7 +11,7 @@ clean as (
         name,
         first_seen,
         last_seen
-)
+),
 
 final as (
     select * from clean
