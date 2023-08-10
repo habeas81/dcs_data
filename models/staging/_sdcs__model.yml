@@ -21,6 +21,9 @@ models:
       - name: campaign_id
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_sdcs__campaigns')
+              field: campaign_id
       - name: coalition
         tests:
           - not_null
@@ -48,6 +51,66 @@ models:
       - name: dcs_coordinates_v
         tests:
           - not_null
+
+  - name: stg_sdcs__campaigns
+    description: >
+      Each round on a map in the sdcs server
+    config:
+      tags:
+        - structured
+        - slowly_changing
+        - staging
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+      - name: datetime_started
+        tests:
+          - not_null
+      - name: campaign_length
+        description: The length of the campaign in days.
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: theatre
+        description: The version of the map that the campaign ran on.
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Caucasus
+                - CaucasusInverted
+                - PersianGulf
+                - PersinaGulfInverted
+                - Syria
+                - SyriaInverted
+                - Nevada
+                - NevadaInverted
+                - Sinai
+                - SinaiInverted
+      - name: map
+        description: The map the campaign was played on regardless of direction
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Caucasus
+                - PersianGulf
+                - Syria
+                - Nevada
+                - Sinai
+      - name: winning_coalition
+        description: The coalition that won the map.
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Blue
+                - Red
+                - Not Ended
+
+
   - name: stg_sdcs__hits
     description:
       Hit events
@@ -62,6 +125,9 @@ models:
       - name: campaign_id
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_sdcs__campaigns')
+              field: campaign_id
       - name: initiator_id
       - name: initiator_group_id
       - name: initiator_user_id
@@ -197,6 +263,9 @@ models:
         description: The campaign that the event occured in.
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_sdcs__campaigns')
+              field: campaign_id
       - name: initiator_user_id
         description: The id of the user that fired the weapon.
       - name: target_user_id
