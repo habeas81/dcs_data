@@ -15,6 +15,7 @@ split as (
     initiator_user_id,
     target_user_id,
     time_created,
+    data -> 'hit' ->> 'weaponName' as weapon_name,
     data -> 'hit' -> 'target' as target,
     data -> 'hit' -> 'initiator' as initiator,
     data -> 'hit' -> 'weapon' as weapon

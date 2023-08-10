@@ -23,7 +23,8 @@ hit_details as (
         campaign_id,
         initiator_user_id,
         target_user_id,
-        time_created
+        time_created,
+        weapon_name
     from hit_events
 ),
 
@@ -61,6 +62,7 @@ joined as (
         target.target_group_name,
         target.target_name,
         target.target_type,
+        details.weapon_name,
         weapon.weapon_type,
         
         -- floats
@@ -106,6 +108,7 @@ cleaning as (
 
         -- date/time
         time_created,
+        time_created::date as date_created,
 
         -- text
         {{- blanks_as_null('initiator_callsign') -}} as initiator_callsign,
@@ -124,6 +127,7 @@ cleaning as (
         target_group_name,
         target_name,
         target_type,
+        weapon_name,
         weapon_type,
         
         -- floats
