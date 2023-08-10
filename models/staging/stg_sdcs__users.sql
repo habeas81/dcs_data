@@ -11,6 +11,7 @@ clean as (
         name,
         first_seen,
         last_seen
+    from source
 ),
 
 final as (
