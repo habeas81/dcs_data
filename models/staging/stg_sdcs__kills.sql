@@ -26,26 +26,50 @@ clean as (
         time_created::time as time_created,
 
         -- boolean
-        initiator_in_air::boolean as initiator_started_in_air,
-        target_in_air::boolean as target_started_in_air,
+        coalesce(initiator_in_air::boolean, False) as initiator_started_in_air,
+        coalesce(target_in_air::boolean, False) as target_started_in_air,
 
         -- text
+        initiator_category,
+        {{ blanks_as_null('initiator_callsign') }} as initiator_callsign,
+        initcap(
+            coalesce(
+                split_part(initiator_coalition, '_', 2),
+                'NEUTRAL'
+            )
+        ) as initiator_coalition,
         initiator_name,
         initiator_type,
         initiator_group_name,
-        split_part(initiator_group_category, '_', 3) as initiator_group_category,
-        split_part(initiator_group_coalition, '_', 2) as initiator_group_coalition,
-        {{ blanks_as_null('initiator_callsign') }} as initiator_callsign,
-        initiator_category,
-        split_part(initiator_coalition, '_', 2) as initiator_coalition,
+        initcap(
+            split_part(initiator_group_category, '_', 3)
+        ) as initiator_group_category,
+        initcap(
+            coalesce(
+                split_part(initiator_group_coalition, '_', 2),
+                'NEUTRAL'
+            )
+        ) as initiator_group_coalition,
         {{ blanks_as_null('initiator_player_name') }} as initiator_player_name,
-        target_name,
-        target_group_name,
-        split_part(target_group_category, '_', 3) as target_group_category,
-        split_part(target_group_coalition, '_', 2) as target_group_coalition,
         {{ blanks_as_null('target_callsign') }} as target_callsign,
         target_category,
-        split_part(target_coalition, '_', 2) as target_coalition,
+        initcap(
+            coalesce(
+                split_part(target_coalition, '_', 2),
+                'NEUTRAL'
+            )
+        ) as target_coalition,
+        target_name,
+        target_group_name,
+        initcap(
+            split_part(target_group_category, '_', 3)
+        ) as target_group_category,
+        initcap(
+            coalesce(
+                split_part(target_group_coalition, '_', 2),
+                'NEUTRAL'
+            )
+        ) as target_group_coalition,
         {{ blanks_as_null('target_player_name') }} as target_player_name,
         target_type,
         {{ blanks_as_null('weapon_name') }} as weapon_name,
