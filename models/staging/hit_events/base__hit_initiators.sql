@@ -17,7 +17,7 @@ units as (
     select 
         hit_id,
         initiator_category,
-        (initiator -> 'unit' ->> 'id')::int as initiator_id,
+        (initiator -> 'unit' ->> 'id') as initiator_id,
         initiator -> 'unit' ->> 'name' as initiator_name,
         initiator -> 'unit' ->> 'type' as initiator_type,
         initiator -> 'unit' ->> 'callsign' as initiator_callsign,
@@ -28,7 +28,7 @@ units as (
         (initiator -> 'unit' -> 'position' -> 'lon')::float as initiator_longitude,
         (initiator -> 'unit' -> 'position' -> 'alt')::float as initiator_altitude,
         (initiator -> 'unit' -> 'velocity' -> 'speed')::float as initiator_speed,
-        (initiator -> 'unit' -> 'group' ->> 'id')::int as initiator_group_id,
+        (initiator -> 'unit' -> 'group' ->> 'id') as initiator_group_id,
         initiator -> 'unit' -> 'group' ->> 'name' as initiator_group_name,
         initiator -> 'unit' -> 'group' ->> 'category' as initiator_group_category,
         initiator -> 'unit' -> 'group' ->> 'coalition' as initiator_group_coalition
@@ -42,7 +42,7 @@ static as (
     select 
         hit_id,
         initiator_category,
-        (initiator -> 'static' ->> 'id')::int as initiator_id,
+        (initiator -> 'static' ->> 'id') as initiator_id,
         initiator -> 'static' ->> 'name' as initiator_name,
         initiator -> 'static' ->> 'type' as initiator_type,
         null::text as initiator_callsign,
@@ -53,7 +53,7 @@ static as (
         (initiator -> 'static' -> 'position' -> 'lon')::float as initiator_longitude,
         (initiator -> 'static' -> 'position' -> 'alt')::float as initiator_altitude,
         (initiator -> 'static' -> 'velocity' -> 'speed')::float as initiator_speed,
-        null::int as initiator_group_id,
+        null::text as initiator_group_id,
         null::text as initiator_group_name,
         null::text as initiator_group_category,
         null::text as initiator_group_coalition
@@ -66,7 +66,7 @@ scenery as (
     select 
         hit_id,
         initiator_category,
-        (initiator -> 'scenery' ->> 'id')::int as initiator_id,
+        (initiator -> 'scenery' ->> 'id') as initiator_id,
         null::text as initiator_name,
         initiator -> 'scenery' ->> 'type' as initiator_type,
         null::text as initiator_callsign,
@@ -77,7 +77,7 @@ scenery as (
         (initiator -> 'scenery' -> 'position' -> 'lon')::float as initiator_longitude,
         (initiator -> 'scenery' -> 'position' -> 'alt')::float as initiator_altitude,
         null::float as initiator_speed,
-        null::int as initiator_group_id,
+        null::text as initiator_group_id,
         null::text as initiator_group_name,
         null::text as initiator_group_category,
         null::text as initiator_group_coalition

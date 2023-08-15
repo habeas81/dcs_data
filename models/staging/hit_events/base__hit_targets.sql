@@ -16,7 +16,7 @@ units as (
     select 
         hit_id,
         target_category,
-        (target -> 'unit' ->> 'id')::int as target_id,
+        (target -> 'unit' ->> 'id') as target_id,
         target -> 'unit' ->> 'name' as target_name,
         target -> 'unit' ->> 'type' as target_type,
         target -> 'unit' ->> 'callsign' as target_callsign,
@@ -25,7 +25,7 @@ units as (
         (target -> 'unit' -> 'position' ->> 'lon')::float as target_longitude,
         (target -> 'unit' -> 'position' ->> 'alt')::float as target_altitude,
         (target -> 'unit' -> 'velocity' ->> 'speed')::float as target_speed,
-        (target -> 'unit' -> 'group' ->> 'id')::int as target_group_id,
+        (target -> 'unit' -> 'group' ->> 'id') as target_group_id,
         target -> 'unit' -> 'group' ->> 'name' as target_group_name,
         target -> 'unit' -> 'group' ->> 'category' as target_group_category,
         target -> 'unit' -> 'group' ->> 'coalition' as target_group_coalition
@@ -38,7 +38,7 @@ scenery as (
     select 
         hit_id,
         target_category,
-        (target -> 'scenery' ->> 'id')::int as target_id,
+        (target -> 'scenery' ->> 'id') as target_id,
         null::text as target_name,
         target -> 'scenery' ->> 'type' as target_type,
         null::text as target_callsign,
@@ -47,7 +47,7 @@ scenery as (
         (target -> 'scenery' -> 'position' ->> 'lon')::float as target_longitude,
         (target -> 'scenery' -> 'position' ->> 'alt')::float as target_altitude,
         null::float as target_speed,
-        null::int as target_group_id,
+        null::text as target_group_id,
         null::text as target_group_name,
         null::text as target_group_category,
         null::text as target_group_coalition
@@ -60,7 +60,7 @@ static as (
     select 
         hit_id,
         target_category,
-        (target -> 'static' ->> 'id')::int as target_id,
+        (target -> 'static' ->> 'id') as target_id,
         target -> 'static' ->> 'name' as target_name,
         target -> 'static' ->> 'type' as target_type,
         null::text as target_callsign,
@@ -69,7 +69,7 @@ static as (
         (target -> 'static' -> 'position' ->> 'lon')::float as target_longitude,
         (target -> 'static' -> 'position' ->> 'alt')::float as target_altitude,
         (target -> 'static' -> 'velocity' ->> 'speed')::float as target_speed,
-        null::int as target_group_id,
+        null::text as target_group_id,
         null::text as target_group_name,
         null::text as target_group_category,
         null::text as target_group_coalition

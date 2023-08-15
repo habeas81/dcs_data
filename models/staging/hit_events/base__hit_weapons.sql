@@ -14,7 +14,7 @@ columns as (
 flatten as (
     select
         hit_id,
-        (weapon ->> 'id')::int as weapon_id,
+        (weapon ->> 'id') as weapon_id,
         weapon ->> 'type' as weapon_type,
         (weapon -> 'position' ->> 'u')::float as weapon_position_u,
         (weapon -> 'position' ->> 'v')::float as weapon_position_v,
