@@ -29,7 +29,7 @@ split as (
 ),
 
 final as (
-    select * from split
+    select * from shots
 )
 
 select * from final
