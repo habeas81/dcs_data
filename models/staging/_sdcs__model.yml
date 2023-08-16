@@ -82,7 +82,7 @@ models:
                 - Caucasus
                 - CaucasusInverted
                 - PersianGulf
-                - PersinaGulfInverted
+                - PersianGulfInverted
                 - Syria
                 - SyriaInverted
                 - Nevada
@@ -112,142 +112,6 @@ models:
 
 
   - name: stg_sdcs__hits
-    description:
-      Hit events
-    config:
-      tags:
-        - structured
-        - staging
-    columns:
-      - name: hit_id
-        tests:
-          - not_null
-      - name: campaign_id
-        tests:
-          - not_null
-          - relationships:
-              to: ref('stg_sdcs__campaigns')
-              field: campaign_id
-      - name: initiator_id
-      - name: initiator_group_id
-      - name: initiator_user_id
-      - name: target_id
-      - name: target_user_id
-      - name: target_group_id
-      - name: weapon_id
-      - name: time_created
-      - name: initiator_callsign
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_category
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_coalition
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_group_name
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_group_category
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_group_coalition
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_name
-        tests:
-          - dbt_utils.not_empty_string
-      - name: initiator_type
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_callsign
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_category
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_coalition
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_group_category
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_group_coalition
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_group_name
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_name
-        tests:
-          - dbt_utils.not_empty_string
-      - name: target_type
-      - name: weapon_type
-      - name: initiator_altitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -428
-      - name: initiator_latitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -90
-              max_value: 90
-      - name: initiator_longitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -180
-              max_value: 180 
-      - name: initiator_position_u
-      - name: initiator_position_v
-      - name: initiator_speed
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-      - name: target_altitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -428
-      - name: target_latitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -90
-              max_value: 90
-      - name: target_longitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -180
-              max_value: 180 
-      - name: target_speed
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-      - name: weapon_altitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -428
-      - name: weapon_latitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -90
-              max_value: 90
-      - name: weapon_longitude
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: -180
-              max_value: 180 
-      - name: weapon_heading
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 360
-      - name: weapon_position_u
-      - name: weapon_position_v
-      - name: weapon_speed
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-
-  - name: stg_sdcs__kills
     description:
       Hit events
     config:
@@ -318,6 +182,7 @@ models:
                 - "Airplane"
                 - "Helicopter"
                 - "Ground"
+                - "Ship"
               config: 
                 where: "initiator_group_category IS NOT NULL"
       - name: initiator_group_coalition
@@ -348,6 +213,219 @@ models:
                 - "Airplane"
                 - "Helicopter"
                 - "Ground"
+                - "Ship"
+              config: 
+                where: "target_group_category IS NOT NULL"
+
+  - name: stg_sdcs__kills
+    description:
+      Kill events
+    config:
+      tags:
+        - structured
+        - staging
+    columns:
+      - name: event_id
+        description: Primary key of the event
+        tests:
+          - not_null
+      - name: campaign_id
+        description: The campaign that the event occured in.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_sdcs__campaigns')
+              field: campaign_id
+      - name: initiator_user_id
+        description: The id of the user that fired the weapon.
+      - name: target_user_id
+        description: The id of the user that died
+      - name: target_user_id
+        description: The id of the user that died
+      - name: datetime_created
+        description: The timestamp that the kill occured on
+        tests:
+          - not_null
+      - name: date_created
+        description: The date the kill happened
+        tests:
+          - not_null
+      - name: time_created
+        description: The time part of the datetime_created
+        tests:
+          - not_null
+      - name: initiator_started_in_air
+        description: Whether the initiator spawned in the air.
+        tests:
+          - not_null
+      - name: target_started_in_air
+        description: Whether the target spawned in the air.
+        tests:
+          - not_null
+      - name: initiator_name
+        description: The name of the initiator
+      - name: initiator_type
+        description: > 
+          The type of unit or static that fired the weapon. Null for scenery.
+      - name: initiator_callsign
+        description: The callsign of the initiator as set in the miz file
+      - name: initiator_coalition
+        description: The coalition that the initiator is in.
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: initiator_group_name
+        description: The name of the group that initiator is in.
+      - name: initiator_group_category
+        description: The category of vehicle the initiator's group is in
+        tests:
+          - accepted_values: 
+              values:
+                - "Airplane"
+                - "Helicopter"
+                - "Ground"
+                - "Ship"
+              config: 
+                where: "initiator_group_category IS NOT NULL"
+      - name: initiator_group_coalition
+        description: The coalition that the group of initiator is in.
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: initiator_player_name
+        description: The name of the player that fired the weapon
+      - name: target_coalition
+        description: The coalition that the target is in.
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: target_group_category
+        description: The category of vehicle the target's group is in
+        tests:
+          - accepted_values: 
+              values:
+                - "Airplane"
+                - "Helicopter"
+                - "Ground"
+                - "Ship"
+              config: 
+                where: "target_group_category IS NOT NULL"
+
+  - name: stg_sdcs__shots
+    description:
+      Shot events
+    config:
+      tags:
+        - structured
+        - staging
+    columns:
+      - name: event_id
+        description: Primary key of the event
+        tests:
+          - not_null
+      - name: campaign_id
+        description: The campaign that the event occured in.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_sdcs__campaigns')
+              field: campaign_id
+      - name: initiator_user_id
+        description: The id of the user that fired the weapon.
+      - name: target_user_id
+        description: The id of the user that died
+      - name: target_user_id
+        description: The id of the user that died
+      - name: datetime_created
+        description: The timestamp that the kill occured on
+        tests:
+          - not_null
+      - name: date_created
+        description: The date the kill happened
+        tests:
+          - not_null
+      - name: time_created
+        description: The time part of the datetime_created
+        tests:
+          - not_null
+      - name: initiator_started_in_air
+        description: Whether the initiator spawned in the air.
+        tests:
+          - not_null
+      - name: target_started_in_air
+        description: Whether the target spawned in the air.
+        tests:
+          - not_null
+      - name: initiator_name
+        description: The name of the initiator
+      - name: initiator_type
+        description: > 
+          The type of unit or static that fired the weapon. Null for scenery.
+      - name: initiator_callsign
+        description: The callsign of the initiator as set in the miz file
+      - name: initiator_coalition
+        description: The coalition that the initiator is in.
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: initiator_group_name
+        description: The name of the group that initiator is in.
+      - name: initiator_group_category
+        description: The category of vehicle the initiator's group is in
+        tests:
+          - accepted_values: 
+              values:
+                - "Airplane"
+                - "Helicopter"
+                - "Ground"
+                - "Ship"
+              config: 
+                where: "initiator_group_category IS NOT NULL"
+      - name: initiator_group_coalition
+        description: The coalition that the group of initiator is in.
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: initiator_player_name
+        description: The name of the player that fired the weapon
+      - name: target_coalition
+        description: The coalition that the target is in.
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: target_group_category
+        description: The category of vehicle the target's group is in
+        tests:
+          - accepted_values: 
+              values:
+                - "Airplane"
+                - "Helicopter"
+                - "Ground"
+                - "Ship"
               config: 
                 where: "target_group_category IS NOT NULL"
 
@@ -404,6 +482,7 @@ models:
                 - "Airplane"
                 - "Helicopter"
                 - "Ground"
+                - "Ship"
               config: 
                 where: "initiator_group_category IS NOT NULL"
       - name: initiator_group_coalition
