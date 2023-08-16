@@ -33,7 +33,7 @@ units as (
         (initiator -> 'unit' -> 'position' -> 'lon')::float as initiator_longitude,
         (initiator -> 'unit' -> 'position' -> 'alt')::float as initiator_altitude,
         (initiator -> 'unit' -> 'velocity' -> 'speed')::float as initiator_speed,
-        (initiator -> 'unit' -> 'group' ->> 'id')::int as initiator_group_id,
+        (initiator -> 'unit' -> 'group' ->> 'id') as initiator_group_id,
         initiator -> 'unit' -> 'group' ->> 'name' as initiator_group_name,
         initiator -> 'unit' -> 'group' ->> 'category' as initiator_group_category,
         initiator -> 'unit' -> 'group' ->> 'coalition' as initiator_group_coalition
@@ -58,7 +58,7 @@ static as (
         (initiator -> 'static' -> 'position' -> 'lon')::float as initiator_longitude,
         (initiator -> 'static' -> 'position' -> 'alt')::float as initiator_altitude,
         (initiator -> 'static' -> 'velocity' -> 'speed')::float as initiator_speed,
-        null::int as initiator_group_id,
+        null::text as initiator_group_id,
         null::text as initiator_group_name,
         null::text as initiator_group_category,
         null::text as initiator_group_coalition
@@ -82,7 +82,7 @@ scenery as (
         (initiator -> 'scenery' -> 'position' -> 'lon')::float as initiator_longitude,
         (initiator -> 'scenery' -> 'position' -> 'alt')::float as initiator_altitude,
         null::float as initiator_speed,
-        null::int as initiator_group_id,
+        null::text as initiator_group_id,
         null::text as initiator_group_name,
         null::text as initiator_group_category,
         null::text as initiator_group_coalition

@@ -1,2 +1,3 @@
 dbt-postgres==1.6.0
 python-dotenv==1.0.0
+python-os==1.0.0

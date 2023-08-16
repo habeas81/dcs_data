@@ -30,7 +30,7 @@ units as (
         (target -> 'unit' -> 'position' ->> 'lon')::float as target_longitude,
         (target -> 'unit' -> 'position' ->> 'alt')::float as target_altitude,
         (target -> 'unit' -> 'velocity' ->> 'speed')::float as target_speed,
-        (target -> 'unit' -> 'group' ->> 'id')::int as target_group_id,
+        (target -> 'unit' -> 'group' ->> 'id') as target_group_id,
         target -> 'unit' -> 'group' ->> 'name' as target_group_name,
         target -> 'unit' -> 'group' ->> 'category' as target_group_category,
         target -> 'unit' -> 'group' ->> 'coalition' as target_group_coalition
@@ -52,7 +52,7 @@ scenery as (
         (target -> 'scenery' -> 'position' ->> 'lon')::float as target_longitude,
         (target -> 'scenery' -> 'position' ->> 'alt')::float as target_altitude,
         null::float as target_speed,
-        null::int as target_group_id,
+        null::text as target_group_id,
         null::text as target_group_name,
         null::text as target_group_category,
         null::text as target_group_coalition
@@ -74,7 +74,7 @@ static as (
         (target -> 'static' -> 'position' ->> 'lon')::float as target_longitude,
         (target -> 'static' -> 'position' ->> 'alt')::float as target_altitude,
         (target -> 'static' -> 'velocity' ->> 'speed')::float as target_speed,
-        null::int as target_group_id,
+        null::text as target_group_id,
         null::text as target_group_name,
         null::text as target_group_category,
         null::text as target_group_coalition
