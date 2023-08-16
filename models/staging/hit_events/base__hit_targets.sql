@@ -21,7 +21,7 @@ units as (
     select 
         hit_id,
         target_category,
-        (target -> 'unit' ->> 'id')::int as target_id,
+        (target -> 'unit' ->> 'id')::bigint as target_id,
         target -> 'unit' ->> 'name' as target_name,
         target -> 'unit' ->> 'type' as target_type,
         target -> 'unit' ->> 'callsign' as target_callsign,
@@ -43,7 +43,7 @@ scenery as (
     select 
         hit_id,
         target_category,
-        (target -> 'scenery' ->> 'id')::int as target_id,
+        (target -> 'scenery' ->> 'id')::bigint as target_id,
         null::text as target_name,
         target -> 'scenery' ->> 'type' as target_type,
         null::text as target_callsign,
@@ -65,7 +65,7 @@ static as (
     select 
         hit_id,
         target_category,
-        (target -> 'static' ->> 'id')::int as target_id,
+        (target -> 'static' ->> 'id')::bigint as target_id,
         target -> 'static' ->> 'name' as target_name,
         target -> 'static' ->> 'type' as target_type,
         null::text as target_callsign,
