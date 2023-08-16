@@ -1,7 +1,7 @@
 with
 
 source as (
-    select * from unit
+    select * from {{source('sdcs', 'unit')}}
 ),
 
 retype as (
