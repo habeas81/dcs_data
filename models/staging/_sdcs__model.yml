@@ -350,3 +350,131 @@ models:
                 - "Ground"
               config: 
                 where: "target_group_category IS NOT NULL"
+
+  - name: stg_sdcs__shot_starts
+    description: "shotStart events"
+    columns:
+      - name: event_id
+        description: "Unique event identifier"
+        tests: [not_null]
+      - name: campaign_id
+        description: "Campaign identifier"
+        tests: [not_null]
+      - name: initiator_id
+        description: "Initiator identifier"
+        tests: [not_null]
+      - name: initiator_group_id
+        description: "Initiator group identifier"
+      - name: initiator_user_id
+        description: "Initiator user identifier"
+      - name: initiator_unit_id
+        description: "Initiator unit identifier"
+      - name: date_time_created
+        description: "Datetime of creation"
+        tests: [not_null]
+      - name: date_created
+        description: "Date of creation"
+        tests: [not_null]
+      - name: time_created
+        description: "Time of creation"
+        tests: [not_null]
+      - name: dcs_time_created
+        description: "DCS time of creation"
+      - name: initiator_started_in_air
+        description: "Initiator started in air"
+        tests: [not_null]
+      - name: initiator_callsign
+        description: "Initiator callsign"
+      - name: initiator_category
+        description: "Initiator category"
+      - name: initiator_coalition
+        description: "Initiator coalition"
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: initiator_group_category
+        description: "Initiator group category"
+        tests:
+          - accepted_values: 
+              values:
+                - "Airplane"
+                - "Helicopter"
+                - "Ground"
+              config: 
+                where: "initiator_group_category IS NOT NULL"
+      - name: initiator_group_coalition
+        description: "Initiator group coalition"
+        tests:
+          - not_null
+          - accepted_values: 
+              values:
+                - "Blue"
+                - "Red"
+                - "Neutral"
+      - name: initiator_group_name
+        description: "Initiator group name"
+      - name: initiator_name
+        description: "Initiator name"
+      - name: initiator_player_name
+        description: "Initiator player name"
+      - name: initiator_type
+        description: "Initiator type"
+      - name: weapon_name
+        description: "Weapon name"
+      - name: initiator_fuel
+        description: "Initiator fuel"
+      - name: initiator_heading
+        description: "Initiator heading"
+      - name: initiator_position_altitude
+        description: "Initiator position altitude"
+      - name: initiator_position_latitude
+        description: "Initiator position latitude"
+      - name: initiator_position_longitude
+        description: "Initiator position longitude"
+      - name: initiator_position_u
+        description: "Initiator position U"
+      - name: initiator_position_v
+        description: "Initiator position V"
+      - name: initiator_number_in_group
+        description: "Initiator number in group"
+      - name: initiator_velocity_heading
+        description: "Initiator velocity heading"
+      - name: initiator_orientation_pitch
+        description: "Initiator orientation pitch"
+      - name: initiator_orientation_roll
+        description: "Initiator orientation roll"
+      - name: initiator_orientation_yaw
+        description: "Initiator orientation yaw"
+      - name: initiator_orientation_foward_x
+        description: "Initiator orientation forward X"
+      - name: initiator_orientation_foward_y
+        description: "Initiator orientation forward Y"
+      - name: initiator_orientation_foward_z
+        description: "Initiator orientation forward Z"
+      - name: initiator_orientation_right_x
+        description: "Initiator orientation right X"
+      - name: initiator_orientation_right_y
+        description: "Initiator orientation right Y"
+      - name: initiator_orientation_right_z
+        description: "Initiator orientation right Z"
+      - name: initiator_orientation_up_x
+        description: "Initiator orientation up X"
+      - name: initiator_orientation_up_y
+        description: "Initiator orientation up Y"
+      - name: initiator_orientation_up_z
+        description: "Initiator orientation up Z"
+      - name: initiator_velocity_speed
+        description: "Initiator velocity speed"
+      - name: initiator_velocity_x
+        description: "Initiator velocity X"
+      - name: initiator_velocity_y
+        description: "Initiator velocity Y"
+      - name: initiator_velocity_z
+        description: "Initiator velocity Z"
+      
+    unique_key: [event_id]  
+    materialized: view  
