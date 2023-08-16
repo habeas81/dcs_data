@@ -1,3 +1,9 @@
+{{
+    config(
+        materialized="ephemeral"
+    )
+}}
+
 with
 
 events as (
