@@ -15,9 +15,11 @@ clean as (
         initiator_id::int as initiator_id,
         initiator_user_id,
         initiator_group_id::int as initiator_group_id,
+        {{target.schema}}.int_or_null(split_part(initiator_name, '|', 1)) as initiator_unit_id,
         target_id::int as target_id,
-        target_user_id,
         target_group_id::int as target_group_id,
+        {{target.schema}}.int_or_null(split_part(target_name, '|', 1)) as target_unit_id,
+        target_user_id,
         weapon_id::int as weapon_id,
 
         -- datetime
