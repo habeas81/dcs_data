@@ -477,4 +477,160 @@ models:
         description: "Initiator velocity Z"
       
     unique_key: [event_id]  
-    materialized: view  
+
+  - name: stg_sdcs__units  # Replace with your desired model name
+    description: "Units tracked by the server"
+    columns:
+      - name: id
+        description: "Unique identifier"
+        tests: [not_null]
+      - name: campaign_id
+        description: "The campaign the unit served on"
+        tests: [not_null]
+      - name: group_id
+        description: "Group identifier"
+      - name: spawn_airfield_id
+        description: "Spawn airfield identifier"
+      - name: user_id
+        description: "User identifier"
+      - name: unit_id
+        description: "Unit identifier found in the name of the unit"
+      - name: unit_type_id
+        description: "Unit type identifier"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_sdcs__unit_types')
+              field: id
+      - name: datetime_created
+        description: "Datetime of creation"
+        tests: [not_null]
+      - name: date_created
+        description: "Date of creation"
+        tests: [not_null]
+      - name: time_created
+        description: "Time of creation"
+        tests: [not_null]
+      - name: datetime_removed
+        description: "Datetime of removal"
+      - name: date_removed
+        description: "Date of removal"
+      - name: time_removed
+        description: "Time of removal"
+      - name: datetime_entered_zone
+        description: "Datetime of entering zone"
+      - name: date_entered_zone
+        description: "Date of entering zone"
+      - name: time_entered_zone
+        description: "Time of entering zone"
+      - name: player_can_drive
+        description: "Player can drive"
+      - name: respawned
+        description: "Respawned"
+      - name: respawn_when_killed
+        description: "Respawn when killed"
+      - name: unpacked_from_cargo
+        description: "Unpacked from cargo"
+      - name: coalition
+        description: "Coalition"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Blue
+                - Red
+                - Neutral
+      - name: unit_suffix
+        description: "Unit suffix"
+      - name: spawn_zone
+        description: "Spawn zone"
+      - name: removed_reason
+        description: "Removed reason"
+      - name: replace_with_comp
+        description: "Replace with component"
+      - name: zone_entered
+        description: "Zone entered"
+      - name: mass_kg
+        description: "Mass in kg"
+      - name: spawn_location_level
+        description: "Spawn location level"
+      - name: removed_at_priority
+        description: "Removed at priority"
+      - name: heading
+        description: "Heading"
+      - name: position_u
+        description: "Position U"
+      - name: position_v
+        description: "Position V"
+      - name: spawn_position_u
+        description: "Spawn position U"
+      - name: spawn_position_v
+        description: "Spawn position V"
+      
+    unique_key: [id]  
+
+  - name: stg_sdcs__unit_types  
+    description: "Description of your model"
+    columns:
+      - name: id
+        description: "Unique identifier"
+        tests: [not_null]
+      - name: unpack_type_id
+        description: "Unpack type identifier"
+      - name: jtac_aggregate_category
+        description: "JTAC aggregate category"
+      - name: shape_name
+        description: "Shape name"
+      - name: skill
+        description: "Skill level"
+        tests: [not_null]
+      - name: type_name
+        description: "Type name"
+        tests: [not_null]
+      - name: unit_type
+        description: "Unit type"
+        tests: [not_null]
+      - name: unit_class
+        description: "Unit class"
+        tests: [not_null]
+      - name: unpack_composition
+        description: "Unpack composition"
+      - name: is_static
+        description: "Is static"
+        tests: [not_null]
+      - name: can_sling
+        description: "Can sling"
+        tests: [not_null]
+      - name: can_drive
+        description: "Can drive"
+        tests: [not_null]
+      - name: is_slot
+        description: "Is slot"
+        tests: [not_null]
+      - name: cargo_capacity
+        description: "Cargo capacity"
+        tests: [not_null]
+      - name: cargo_count
+        description: "Cargo count"
+      - name: cargo_max_level
+        description: "Cargo max level"
+      - name: cargo_max_persist_level
+        description: "Cargo max persist level"
+      - name: factory_level
+        description: "Factory level"
+      - name: jtac_priority
+        description: "JTAC priority"
+      - name: load_delay
+        description: "Load delay"
+      - name: mass_kg
+        description: "Mass in kg"
+      - name: shelter_level
+        description: "Shelter level"
+      - name: troop_count
+        description: "Troop count"
+      - name: unit_level
+        description: "Unit level"
+      - name: unit_cost
+        description: "Unit cost"
+      
+    unique_key: [id]  # Define the unique key for your model
