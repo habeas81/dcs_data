@@ -41,6 +41,7 @@ joined as (
         type.unit_type,
         type.unit_class,
         unit.coalition,
+        type.marker_category,
         unit.player_can_drive,
         unit.unpacked_from_cargo,
         type.is_static,

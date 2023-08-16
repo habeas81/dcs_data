@@ -11,7 +11,7 @@ clean as (
         unpack_type_id,
 
         -- text
-        jtac_aggr_category as jtac_aggregate_category,
+        jtac_aggr_category as marker_category,
         shape_name,
         initcap(split_part(skill::text, '_', 2)) as skill,
         type_name,
