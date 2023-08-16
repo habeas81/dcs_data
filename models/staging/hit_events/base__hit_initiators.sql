@@ -22,7 +22,7 @@ units as (
     select 
         hit_id,
         initiator_category,
-        (initiator -> 'unit' ->> 'id')::int as initiator_id,
+        (initiator -> 'unit' ->> 'id')::bigint as initiator_id,
         initiator -> 'unit' ->> 'name' as initiator_name,
         initiator -> 'unit' ->> 'type' as initiator_type,
         initiator -> 'unit' ->> 'callsign' as initiator_callsign,
@@ -47,7 +47,7 @@ static as (
     select 
         hit_id,
         initiator_category,
-        (initiator -> 'static' ->> 'id')::int as initiator_id,
+        (initiator -> 'static' ->> 'id')::bigint as initiator_id,
         initiator -> 'static' ->> 'name' as initiator_name,
         initiator -> 'static' ->> 'type' as initiator_type,
         null::text as initiator_callsign,
@@ -71,7 +71,7 @@ scenery as (
     select 
         hit_id,
         initiator_category,
-        (initiator -> 'scenery' ->> 'id')::int as initiator_id,
+        (initiator -> 'scenery' ->> 'id')::bigint as initiator_id,
         null::text as initiator_name,
         initiator -> 'scenery' ->> 'type' as initiator_type,
         null::text as initiator_callsign,
