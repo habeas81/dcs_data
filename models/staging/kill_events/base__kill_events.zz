@@ -1,0 +1,35 @@
+{{
+    config(
+        materialized="view"
+    )
+}}
+with
+
+events as (
+    select * from {{ ref('base_sdcs__events') }}
+),
+
+kills as (
+    select * from events where events.data ->> 'event' = 'kill'
+),
+
+split as (
+    select
+    event_id as kill_id,
+    campaign_id,
+    initiator_user_id,
+    target_user_id,
+    time_created,
+    data -> 'kill' ->> 'weaponName' as weapon_name,
+    data -> 'kill' -> 'target' as target,
+    data -> 'kill' -> 'initiator' as initiator,
+    data -> 'kill' -> 'weapon' as weapon
+
+    from kills
+),
+
+final as (
+    select * from split
+)
+
+select * from final

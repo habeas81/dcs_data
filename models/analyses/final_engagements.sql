@@ -1,9 +1,9 @@
 WITH final_engagements AS (
     SELECT
         engagements.*,
-        eng_pairs.initiator_id::text,
+        eng_pairs.initiator_id,
         eng_pairs.initiator_name,
-        eng_pairs.target_id::text,
+        eng_pairs.target_id,
         eng_pairs.target_name
     FROM {{ ref('engagements') }}
     JOIN {{ ref('eng_pairs') }}
