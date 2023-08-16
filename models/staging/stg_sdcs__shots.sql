@@ -4,10 +4,6 @@ shot_events as (
     select * from {{ ref('base__shot_events')}}
 ),
 
-shot_targets as (
-    select * from {{ ref('base__shot_targets')}}
-),
-
 shot_initiators as (
     select * from {{ ref('base__shot_initiators')}}
 ),
@@ -22,7 +18,6 @@ shot_details as (
         shot_id,
         campaign_id,
         initiator_user_id,
-        target_user_id,
         time_created,
         weapon_name
     from shot_events
@@ -37,9 +32,7 @@ joined as (
         init.initiator_id,
         init.initiator_group_id,
         details.initiator_user_id,
-        target.target_id,
         details.target_user_id,
-        target.target_group_id,
         weapon.weapon_id,
 
         -- date/time
@@ -54,14 +47,6 @@ joined as (
         init.initiator_group_coalition,
         init.initiator_name,
         init.initiator_type,
-        target.target_callsign,
-        target.target_category,
-        target.target_coalition,
-        target.target_group_category,
-        target.target_group_coalition,
-        target.target_group_name,
-        target.target_name,
-        target.target_type,
         details.weapon_name,
         weapon.weapon_type,
         
@@ -72,10 +57,6 @@ joined as (
         init.initiator_position_u,
         init.initiator_position_v,
         init.initiator_speed,
-        target.target_altitude,
-        target.target_latitude,
-        target.target_longitude,
-        target.target_speed,
         weapon.weapon_altitude,
         weapon.weapon_latitude,
         weapon.weapon_longitude,
@@ -85,8 +66,6 @@ joined as (
         weapon.weapon_speed
 
     from shot_details as details
-    left join shot_targets as target
-        on details.shot_id = target.shot_id
     left join shot_initiators as init
         on details.shot_id = init.shot_id
     left join shot_weapons as weapon
@@ -102,11 +81,6 @@ cleaning as (
         initiator_group_id,
         {{target.schema}}.int_or_null(split_part(initiator_name, '|', 1)) as initiator_unit_id,
         initiator_user_id,
-        
-        target_id,
-        target_group_id,
-        {{target.schema}}.int_or_null(split_part(target_name, '|', 1)) as target_unit_id,
-        target_user_id,
         weapon_id,
 
         -- date/time
@@ -123,13 +97,6 @@ cleaning as (
         initiator_name,
         initiator_type,
         {{- blanks_as_null('target_callsign') -}} as target_callsign,
-        target_category,
-        initcap(split_part(target_coalition, '_', 2)) as target_coalition,
-        initcap(split_part(target_group_category, '_', 3)) as target_group_category,
-        initcap(split_part(target_group_coalition, '_', 2)) as target_group_coalition,
-        target_group_name,
-        target_name,
-        target_type,
         weapon_name,
         weapon_type,
         
@@ -140,10 +107,6 @@ cleaning as (
         initiator_position_u,
         initiator_position_v,
         initiator_speed,
-        target_altitude,
-        target_latitude,
-        target_longitude,
-        target_speed,
         weapon_altitude,
         weapon_latitude,
         weapon_longitude,
