@@ -73,7 +73,7 @@ flatten as (
     jsonb_to_record(shooting_start) as shot("weaponName" text, initiator jsonb),
     jsonb_to_record(initiator) as initiator(unit jsonb, heading float, "numberInGroup" int, initiator text),
     jsonb_to_record(unit) as unit(
-        id int,
+        id bigint,
         fuel float,
         name text,
         type text,
@@ -86,7 +86,7 @@ flatten as (
         "velocity" jsonb,
         "orientation" jsonb
     ),
-    jsonb_to_record("group") as group_(id int, name text, category text, coalition text),
+    jsonb_to_record("group") as group_(id bigint, name text, category text, coalition text),
     jsonb_to_record("position") as position(u float, v float, alt float, lat float, lon float),
     jsonb_to_record("velocity") as velocity(speed float, heading float, velocity jsonb),
     jsonb_to_record("orientation") as orientation(
